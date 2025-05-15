@@ -58,7 +58,7 @@ class WAVDataset(Dataset):
 
         # Load the samples
         waveform, sample_rate = torchaudio.load(
-            filepath=self.wavs[idx], frame_offset=frame_offset, num_frames=crop_size
+            uri=self.wavs[idx], frame_offset=frame_offset, num_frames=crop_size
         )
 
         # Pad with zeroes if the sizes aren't quite right
@@ -100,7 +100,7 @@ class WAVDataset(Dataset):
                 if hasattr(self, "random_crop_size"):
                     waveform, sample_rate = self.optimized_random_crop(int(idx))
                 else:
-                    waveform, sample_rate = torchaudio.load(filepath=self.wavs[idx])
+                    waveform, sample_rate = torchaudio.load(uri=self.wavs[idx])
             except Exception:
                 invalid_audio = True
                 continue
